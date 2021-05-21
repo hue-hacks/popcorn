@@ -1,0 +1,11 @@
+{
+  "name": "popcorn",
+  "version": "0.0.1",
+  "description": "An ambitious popcorn app",
+  "main": "index.js",
+  "repository": "git@github.com:hue-hacks/popcorn.git",
+  "author": "Bryan Levay <blevay@linkedin.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": "packages/*"
+}
