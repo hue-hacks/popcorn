@@ -58,6 +58,8 @@
   },
   "dependencies": {
     "ember-auto-import": "^2.0.0",
-    "sha1": "^1.1.1"
+    "sha1": "^1.1.1",
+    "tracked-built-ins": "^1.1.1",
+    "webpack": "^5.37.1"
   }
 }

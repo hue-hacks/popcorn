@@ -1,12 +1,30 @@
-import { sha1 } from 'sha1';
+import sha1 from 'sha1';
+import { TrackedSet } from "tracked-built-ins";
 
-class Bucket {
+export default class Bucket {
   #id;
   #people;
-  constructor(name, people) {
+  #name;
+
+  constructor(name, people = []) {
+    this.#name = name;
     this.#id = sha1(name + Date.now());
-    if (people) {
-      this.#people = people;
-    }
+    this.#people = new TrackedSet(people);
+  }
+
+  addPerson(person) {
+    this.#people.add(person);
+  }
+
+  removePerson(person) {
+    this.#people.remove(person);
+  }
+
+  get people() {
+    return Array.from(this.#people);
+  }
+
+  get name() {
+    return this.#name;
   }
 }

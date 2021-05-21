@@ -26,7 +26,7 @@
   <ul>
     {{#each this.model.buckets as |bucket|}}
       <li>
-        <BucketSummary @name={{bucket.[0]}} @people={{bucket.[1]}}/>
+        <BucketSummary @name={{bucket.name}} @people={{bucket.people}}/>
       </li>
     {{/each}}
   </ul>

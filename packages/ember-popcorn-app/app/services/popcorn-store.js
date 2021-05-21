@@ -1,5 +1,6 @@
 import Service from '@ember/service';
 import Bucket from './popcorn-store/bucket';
+import { TrackedSet } from "tracked-built-ins";
 
 const LOCALSTORAGE_KEY = 'popcorn';
 const SESSIONSTORAGE_KEY = 'popcorn';
@@ -10,8 +11,13 @@ export default class LocalStorageService extends Service {
   }
 
   #lsCache = {
-    buckets: [] // Bucket[]
+    buckets: new TrackedSet([
+      new Bucket('foo', [1, 2, 3])
+    ]) // Bucket[]
   }
+
+
+  // TODO: warm the cache in the constructor
 
   #persistLocalStorage() {
     window.localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(this.lsCache))
@@ -34,15 +40,15 @@ export default class LocalStorageService extends Service {
   newBucket(name, people = []) {
     const bucket = new Bucket(name, people);
     this.#addBucket(bucket);
+    return bucket;
   }
 
-  getAllBuckets() {
-    return this.#lsCache.buckets;
+  get buckets() {
+    return Array.from(this.#lsCache.buckets);
   }
 
   getBucket(id) {
-    this.#lsCache.buckets.find((b) => b.id === id);
-    return this.#lsCache[id];
+    return this.buckets.find((b) => b.id === id);
   }
 
   destroyBucket(id) {
