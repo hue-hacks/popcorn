@@ -1,10 +1,35 @@
-{{!-- lists --}}
-<ul>
-  {{#each this.model.buckets as |bucket|}}
-    <li>
-      <BucketSummary @name={{bucket.[0]}} @people={{bucket.[1]}}/>
-    </li>
-  {{/each}}
-</ul>
+<h1>Popcorn Homepage!</h1>
+
+<section>
+  <h2>Create a new Popcorn</h2>
+  <form>
+    <label for="popcorn-bucket">Popcorn Bucket:</label>
+    <select id="popcorn-bucket">
+      <option value="standup">Standup Peeps</option>
+      <option value="ad-hoc">Ad Hoc Bucket</option>
+    </select>
+    <fieldset>
+      <legend>Time Per Item</legend>
+      <label for="timer-minutes">Minutes:</label>
+      <input type="number" id="timer-minutes" />
+      <label for="timer-seconds">Seconds:</label>
+      <input type="number" id="timer-seconds" />
+    </fieldset>
+    <button type="submit">Create Popcorn</button>
+  </form>
+</section>
+
+<section>
+  <h2>Edit Popcorn Buckets</h2>
+
+  {{!-- lists --}}
+  <ul>
+    {{#each this.model.buckets as |bucket|}}
+      <li>
+        <BucketSummary @name={{bucket.[0]}} @people={{bucket.[1]}}/>
+      </li>
+    {{/each}}
+  </ul>
+</section>
 
 {{outlet}}

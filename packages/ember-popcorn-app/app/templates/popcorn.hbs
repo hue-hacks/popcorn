@@ -1,0 +1,21 @@
+<section>
+  <h2>Current Popcorn</h2>
+
+  <section>
+    <h3>Current Item:</h3>
+    <p>Item B</p>
+    <h3>Time Remaining:</h3>
+    <p>{{this.timer.timer}}</p>
+  </section>
+
+  <ul>
+    <li>Item A</li>
+    <li class="current">Item B</li>
+    <li>Item C</li>
+  </ul>
+
+  <button>Next</button>
+
+  <button {{on "click" this.startTimer}}>start timer</button>
+  <button {{on "click" this.stopTimer}}>stop timer</button>
+</section>
