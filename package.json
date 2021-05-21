@@ -7,5 +7,5 @@
   "author": "Bryan Levay <blevay@linkedin.com>",
   "license": "MIT",
   "private": true,
-  "workspaces": "packages/*"
+  "workspaces": ["packages/*"]
 }
