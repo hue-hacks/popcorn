@@ -3,19 +3,21 @@
 
   <section>
     <h3>Current Item:</h3>
-    <p>Item B</p>
+    <p>{{if this.currentItem this.currentItem "(Not running...)"}}</p>
     <h3>Time Remaining:</h3>
     <p>{{this.timer.timer}}</p>
   </section>
 
   <ul>
-    <li>Item A</li>
-    <li class="current">Item B</li>
-    <li>Item C</li>
+    {{#each this.currentQueue as |item|}}
+      <li class={{if (eq item this.currentItem) "popcorn-item--current"}}>{{item}}</li>
+    {{/each}}
   </ul>
 
-  <button>Next</button>
-
-  <button {{on "click" this.startTimer}}>start timer</button>
-  <button {{on "click" this.stopTimer}}>stop timer</button>
+  {{#if isPopcornRunning}}
+    <button {{on "click" this.nextItem}}>Next</button>
+    <button {{on "click" this.end}}>End</button>
+  {{else}}
+    <button {{on "click" this.start}}>Start</button>
+  {{/if}}
 </section>
