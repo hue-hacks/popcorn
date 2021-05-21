@@ -1,1 +1,3 @@
-{{@name}}: {{list-join list=@people}}
+<LinkTo @route="buckets.bucket" @model={{@bucket.id}}>
+  {{@bucket.name}}: {{list-join list=@bucket.people}}
+</LinkTo>

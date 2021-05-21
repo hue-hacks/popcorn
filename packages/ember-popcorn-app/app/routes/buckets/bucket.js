@@ -1,7 +1,10 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 
 export default class BucketsBucketRoute extends Route {
-  model() {
-    return 'foo';
+  @service('popcorn-store') popcornStore;
+
+  model({ bucket_id}) {
+    return this.popcornStore.getBucket(bucket_id)
   }
 }

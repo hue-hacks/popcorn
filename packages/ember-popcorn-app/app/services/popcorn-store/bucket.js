@@ -27,4 +27,8 @@ export default class Bucket {
   get name() {
     return this.#name;
   }
+
+  get id() {
+    return this.#id;
+  }
 }
