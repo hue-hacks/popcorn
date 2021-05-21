@@ -10,8 +10,6 @@ export default class TimerService extends Service {
 
   activeCountdown;
 
-  hasUtteredTimeout = false;
-
   willDestroy() {
     if (this.activeCountdown) {
       clearInterval(this.activeCountdown);
@@ -36,9 +34,9 @@ export default class TimerService extends Service {
     this.seconds = this.interval;
     this.activeCountdown = setInterval(() => {
       this.seconds = Math.max(this.seconds - 1, 0);
-      if (this.seconds === 0 && !this.hasUtteredTimeout) {
+      if (this.seconds === 0) {
         window.speechSynthesis.speak(OUT_OF_TIME_VOICEOVER);
-        this.hasUtteredTimeout = true;
+        this.stop();
       }
     }, 1000);
   }
@@ -49,7 +47,6 @@ export default class TimerService extends Service {
     }
     clearInterval(this.activeCountdown);
     this.activeCountdown = undefined;
-    this.hasUtteredTimeout = false;
     this.seconds = 0;
   }
 
