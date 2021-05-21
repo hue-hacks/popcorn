@@ -8,4 +8,7 @@ export default class Router extends EmberRouter {
 
 Router.map(function() {
   this.route('popcorn');
+  this.route('buckets', function() {
+    this.route('bucket', { path: '/:bucket_id' });
+  });
 });
