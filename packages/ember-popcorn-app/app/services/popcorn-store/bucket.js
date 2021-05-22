@@ -31,4 +31,12 @@ export default class Bucket {
   get id() {
     return this.#id;
   }
+
+  toJSON() {
+    return {
+      people: this.people,
+      name: this.name,
+      id: this.id
+    }
+  }
 }

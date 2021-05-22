@@ -5,26 +5,53 @@ import { TrackedSet } from "tracked-built-ins";
 const LOCALSTORAGE_KEY = 'popcorn';
 const SESSIONSTORAGE_KEY = 'popcorn';
 
-export default class LocalStorageService extends Service {
-  #ssCache = {
-    whoHasGone: [] // String[]
+export default class PopcornStoreService extends Service {
+  constructor() {
+    super();
+
+    this.#initSSCache();
+    this.#initLSCache();
   }
 
-  #lsCache = {
-    buckets: new TrackedSet([
-      new Bucket('foo', [1, 2, 3])
-    ]) // Bucket[]
+  #ssCache
+  #lsCache
+
+  #initSSCache() {
+    let ss = window.sessionStorage.getItem(SESSIONSTORAGE_KEY);
+    try {
+      ss = JSON.parse(ss);
+    } catch(e) {
+      ss = {
+        whoHasGone: [] // String[]
+      }
+    }
+    this.#ssCache = ss;
   }
 
-
-  // TODO: warm the cache in the constructor
+  #initLSCache() {
+    let ls = window.localStorage.getItem(LOCALSTORAGE_KEY);
+    try {
+      ls = JSON.parse(ls);
+      ls.buckets = new TrackedSet(ls.buckets);
+    } catch(e) {
+      ls = {
+        buckets: new TrackedSet() // Bucket[]
+      }
+    }
+    ls.toJSON = function() {
+      return {
+        buckets: Array.from(this.buckets)
+      };
+    };
+    this.#lsCache = ls;
+  }
 
   #persistLocalStorage() {
-    window.localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(this.lsCache))
+    window.localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(this.#lsCache))
   }
 
   #persistSessionStorage() {
-    window.sessionStorage.setItem(SESSIONSTORAGE_KEY, JSON.stringify(this.ssCache));
+    window.sessionStorage.setItem(SESSIONSTORAGE_KEY, JSON.stringify(this.#ssCache));
   }
 
   personWent(person) {
@@ -44,6 +71,7 @@ export default class LocalStorageService extends Service {
   }
 
   get buckets() {
+    console.log(this.#lsCache);
     return Array.from(this.#lsCache.buckets);
   }
 
@@ -51,8 +79,10 @@ export default class LocalStorageService extends Service {
     return this.buckets.find((b) => b.id === id);
   }
 
-  destroyBucket(id) {
-    delete this.#lsCache.buckets[id];
+  destroyBucket(bucket) {
+    // could be a bucket id or a bucket itself.
+    let b = bucket.id ? bucket : this.getBucket(bucket);
+    this.#lsCache.buckets.delete(b);
     this.#persistLocalStorage();
   }
 }

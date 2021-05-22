@@ -7,7 +7,6 @@ export default class IndexRoute extends Route {
     const model = {
       buckets: this.popcornStore.buckets
     };
-    console.log(model);
     return model;
   }
 }
