@@ -36,6 +36,6 @@ export default class BucketsNewController extends Controller {
 
   @action
   saveBucket() {
-    this.popcornStore.addBucket
+    this.popcornStore.newBucket(this.name, this.people);
   }
 }

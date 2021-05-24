@@ -59,7 +59,7 @@ export default class PopcornStoreService extends Service {
   }
 
   #addBucket(bucket) {
-    this.#lsCache.buckets[bucket.id] = bucket;
+    this.#lsCache.buckets.add(bucket);
     this.#persistLocalStorage();
   }
 
