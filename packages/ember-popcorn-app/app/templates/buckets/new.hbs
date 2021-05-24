@@ -1,0 +1,18 @@
+<label>
+  Bucket Name:
+  <input type="text" value={{this.name}} {{on "input" this.updateName}} />
+</label>
+
+<dl>
+  <dt>{{this.name}}</dt>
+  {{#each this.people as |person|}}
+    <dd>{{person}}</dd>
+  {{/each}}
+  {{#if this.addingPerson}}
+    <PersonInput @savePerson={{this.addPerson}} />
+  {{else}}
+    <button {{on "click" this.activatePersonEntry}}>Add Person</button>
+  {{/if}}
+</dl>
+
+<button type="button" {{on "click" this.saveBucket}}>Save Bucket</button>

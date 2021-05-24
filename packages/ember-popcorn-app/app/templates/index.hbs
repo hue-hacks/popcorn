@@ -22,14 +22,7 @@
 <section>
   <h2>Edit Popcorn Buckets</h2>
 
-  {{!-- lists --}}
-  <ul>
-    {{#each this.model.buckets as |bucket|}}
-      <li>
-        <BucketSummary @name={{bucket.[0]}} @people={{bucket.[1]}}/>
-      </li>
-    {{/each}}
-  </ul>
+  <ListOBuckets @buckets={{this.model.buckets}} />
 </section>
 
 {{outlet}}

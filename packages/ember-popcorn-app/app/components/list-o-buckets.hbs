@@ -1,0 +1,7 @@
+<ul>
+  {{#each @buckets as |bucket|}}
+    <li>
+      <BucketSummary @bucket={{bucket}} /> <button {{on 'click' (fn this.deleteBucket bucket)}}>baleet</button>
+    </li>
+  {{/each}}
+</ul>

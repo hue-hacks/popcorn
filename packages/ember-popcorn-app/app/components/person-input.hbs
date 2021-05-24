@@ -1,0 +1,5 @@
+<label>
+  Person's Name:
+  <input type="text" value={{this.value}} {{on "input" this.updateValue}} />
+</label>
+<button {{on "click" (fn @savePerson this.value)}}>Save</button>
