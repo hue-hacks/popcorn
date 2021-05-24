@@ -1,16 +1,16 @@
 import Service from '@ember/service';
+import { tracked } from '@glimmer/tracking';
+import CurrentPopcorn from './popcorn-store/current-popcorn';
 
 const LOCALSTORAGE_KEY = 'popcorn';
 const SESSIONSTORAGE_KEY = 'popcorn';
 
 export default class LocalStorageService extends Service {
-  #ssCache = {
-    whoHasGone: [] // String[]
-  }
+  @tracked currentPopcorn = new CurrentPopcorn(['Item A', 'Item B', 'Item C']);
 
   #lsCache = {
     buckets: {
-      meetingName: ['p1', 'p2'] 
+      meetingName: ['p1', 'p2']
     } // pojo of arrays
   }
 
@@ -28,10 +28,6 @@ export default class LocalStorageService extends Service {
     } else {
       this.lsCache.buckets[name].push(...people);
     }
-  }
-
-  personWent(person) {
-    this.ssCache.whoHasGone.push(person);
   }
 
   get buckets() {
