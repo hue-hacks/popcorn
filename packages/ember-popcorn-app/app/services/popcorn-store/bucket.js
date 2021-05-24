@@ -20,6 +20,10 @@ export default class Bucket {
     this.#people.remove(person);
   }
 
+  setName(name) {
+    this.#name = name;
+  }
+
   get people() {
     return Array.from(this.#people);
   }

@@ -7,7 +7,7 @@ const SESSIONSTORAGE_KEY = 'popcorn';
 
 export default class PopcornStoreService extends Service {
   constructor() {
-    super();
+    super(...arguments);
 
     this.#initSSCache();
     this.#initLSCache();
